@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#101c30" />
+    <meta
+      name="description"
+      content="Painel de acompanhamento dos processos de aquisição"
+    />
+    <title>Acompanhamento de Processos</title>
+    <link rel="icon" type="image/png" href="img/Logo_CEPDEC.png" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="shell topbar-content">
+        <img
+          class="brand-mark"
+          src="img/Logo_CEPDEC.png"
+          alt="Logo da Defesa Civil"
+          width="48"
+          height="48"
+        />
+        <div>
+          <div class="brand">DEFESA CIVIL <span>ES</span></div>
+          <div class="brand-sub">GERÊNCIA ADMINISTRATIVA</div>
+        </div>
+        <div class="topbar-right">
+          Painel de acompanhamento <span class="top-dot"></span>
+        </div>
+      </div>
+    </header>
+    <main class="shell">
+      <section class="intro">
+        <div>
+          <div class="eyebrow">VISÃO GERAL</div>
+          <h1>Acompanhamento de Processos</h1>
+          <p>
+            Consulta consolidada dos processos, da documentação e das situações
+            administrativas.
+          </p>
+        </div>
+        <div class="sync-area">
+          <span
+            id="syncStatus"
+            class="sync-status"
+            role="status"
+            aria-live="polite"
+            >Aguardando consulta</span
+          ><button id="refreshBtn" class="secondary-btn" type="button">
+            <span aria-hidden="true">↻</span> Atualizar dados
+          </button>
+        </div>
+      </section>
+      <section class="filters" aria-label="Filtros">
+        <label class="field"
+          ><span>Ano</span
+          ><select id="yearFilter">
+            <option value="all">Todos os anos</option>
+          </select></label
+        ><label class="field search-field"
+          ><span>Pesquisar</span
+          ><input
+            id="searchInput"
+            type="search"
+            placeholder="Objeto ou processo E-Docs..."
+            autocomplete="off" /></label
+        ><label class="field"
+          ><span>Situação</span
+          ><select id="statusFilter">
+            <option value="all">Todas as situações</option>
+          </select></label
+        ><label class="field"
+          ><span>Documentação</span
+          ><select id="progressFilter">
+            <option value="all">Todos os estágios</option>
+            <option value="complete">5 etapas concluídas</option>
+            <option value="partial">Em andamento (1 a 4)</option>
+            <option value="none">Nenhuma etapa</option>
+          </select></label
+        ><button id="clearBtn" type="button" class="clear-btn">
+          Limpar filtros
+        </button>
+      </section>
+      <section class="metrics" aria-label="Indicadores">
+        <article class="metric">
+          <span>Total de processos</span><strong id="totalProcesses">—</strong
+          ><small>Dentro dos filtros selecionados</small>
+        </article>
+        <article class="metric">
+          <span>Documentação completa</span
+          ><strong id="completeProcesses">—</strong
+          ><small>Todas as 5 etapas marcadas</small>
+        </article>
+        <article class="metric">
+          <span>Documentação parcial</span
+          ><strong id="partialProcesses">—</strong
+          ><small>De 1 a 4 etapas marcadas</small>
+        </article>
+        <article class="metric">
+          <span>Etapas concluídas</span><strong id="averageProgress">—</strong
+          ><small>Média dos processos filtrados</small>
+        </article>
+      </section>
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>Processos acompanhados</h2>
+            <p id="resultCount">Aguardando dados da planilha</p>
+          </div>
+          <div class="legend">
+            <span><i class="legend-dot yes"></i>Concluída</span
+            ><span><i class="legend-dot no"></i>Pendente</span>
+          </div>
+        </div>
+        <div id="alert" class="alert" hidden role="alert"></div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Ano</th>
+                <th id="objectSortHeader" scope="col" aria-sort="none">
+                  <button id="objectSortBtn" class="sort-btn" type="button">
+                    Objeto / unidade
+                    <span id="objectSortIcon" aria-hidden="true">↕</span>
+                  </button>
+                </th>
+                <th>Qtd.</th>
+                <th>Processo E-Docs</th>
+                <th>Etapas documentais</th>
+                <th id="progressSortHeader" scope="col" aria-sort="none">
+                  <button id="progressSortBtn" class="sort-btn" type="button">
+                    Progresso
+                    <span id="progressSortIcon" aria-hidden="true">↕</span>
+                  </button>
+                </th>
+                <th>Situação</th>
+              </tr>
+            </thead>
+            <tbody id="processRows">
+              <tr>
+                <td colspan="7" class="empty">Carregando processos...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="panel-footer">
+          <span id="footerInfo">Fonte: Google Sheets, aba ACOMPANHAMENTO</span>
+          <div class="pager">
+            <button id="prevBtn" type="button">Anterior</button
+            ><span id="pageInfo">—</span
+            ><button id="nextBtn" type="button">Próxima</button>
+          </div>
+        </div>
+      </section>
+      <p class="footnote">
+        Painel de consulta. As etapas documentais refletem os checkboxes da
+        planilha e não determinam, isoladamente, a situação administrativa de
+        cada processo. Dados publicados podem ser acessados por terceiros.
+      </p>
+    </main>
+    <script src="script.js" defer></script>
+  </body>
+</html>
